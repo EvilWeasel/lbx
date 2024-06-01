@@ -3,7 +3,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import Mux from "@mux/mux-node";
 
-const mux = new Mux({
+const {video} = new Mux({
   tokenId: process.env.MUX_TOKEN_ID,
   tokenSecret: process.env.MUX_TOKEN_SECRET,
 });
@@ -40,7 +40,7 @@ export async function DELETE(
       });
 
       if (existingMuxData) {
-        await mux.video.assets.delete(existingMuxData.assetId);
+        await video.assets.delete(existingMuxData.assetId);
         await db.muxData.delete({
           where: {
             id: existingMuxData.id,
@@ -119,7 +119,7 @@ export async function PATCH(
       });
 
       if (existingMuxData) {
-        await mux.video.assets.delete(existingMuxData.assetId);
+        await video.assets.delete(existingMuxData.assetId);
         await db.muxData.delete({
           where: {
             id: existingMuxData.id,
@@ -127,7 +127,7 @@ export async function PATCH(
         });
       }
 
-      const asset = await mux.video.assets.create({
+      const asset = await video.assets.create({
         input: values.videoUrl,
         playback_policy: ["public"],
         test: false,
