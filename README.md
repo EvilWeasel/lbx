@@ -44,3 +44,7 @@ npx prisma generate # generate new typed models from schema
 npx prisma db push # push schema to hosted db
 npx prisma studio # open webinterface for prisma localdev
 ```
+
+## Zustand
+
+added for confetti...
