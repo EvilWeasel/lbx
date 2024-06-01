@@ -3,7 +3,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import Mux from "@mux/mux-node";
 
-const {video} = new Mux({
+const { video } = new Mux({
   tokenId: process.env.MUX_TOKEN_ID,
   tokenSecret: process.env.MUX_TOKEN_SECRET,
 });
@@ -40,12 +40,19 @@ export async function DELETE(
       });
 
       if (existingMuxData) {
-        await video.assets.delete(existingMuxData.assetId);
-        await db.muxData.delete({
-          where: {
-            id: existingMuxData.id,
-          },
-        });
+        try {
+          await video.assets.delete(existingMuxData.assetId);
+          await db.muxData.delete({
+            where: {
+              id: existingMuxData.id,
+            },
+          });
+        } catch (error) {
+          console.error(
+            "Error while deleting mux-asset! Gracefully continuing in case of remote removal inside of mux-dashboard...",
+            error,
+          );
+        }
       }
     }
 
