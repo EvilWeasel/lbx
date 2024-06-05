@@ -33,7 +33,7 @@ export const CourseCard = ({
           <div className="line-clamp-2 text-lg font-medium transition group-hover:text-sky-700 md:text-base">
             {title}
           </div>
-          <p className="text-cs text-muted-foreground">{category}</p>
+          <p className="text-xs text-muted-foreground">{category}</p>
           <div className="my-3 flex items-center gap-x-2 text-sm md:text-xs">
             <div className="flex items-center gap-x-1 text-slate-500">
               <IconBadge size={"sm"} icon={BookOpen} />
